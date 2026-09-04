@@ -1,155 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>UniPath</title>
+<title>UniPath</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
 
-        body {
-            background: linear-gradient(135deg, #eef2ff, #f8fafc);
-            color: #172554;
-            min-height: 100vh;
-        }
+body {
+    background: linear-gradient(135deg, #eef2ff, #f8fafc);
+    color: #172554;
+    min-height: 100vh;
+}
 
-        header {
-            text-align: center;
-            padding: 60px 20px 35px;
-        }
+header {
+    text-align: center;
+    padding: 55px 20px 30px;
+}
 
-        header h1 {
-            font-size: 42px;
-            margin-bottom: 12px;
-        }
+header h1 {
+    font-size: 46px;
+    margin-bottom: 12px;
+}
 
-        header p {
-            color: #64748b;
-            font-size: 18px;
-        }
+header p {
+    color: #64748b;
+    font-size: 18px;
+}
 
-        .search-box {
-            max-width: 700px;
-            margin: 0 auto 30px;
-            padding: 0 20px;
-        }
+.search-box {
+    max-width: 700px;
+    margin: 0 auto 22px;
+    padding: 0 20px;
+}
 
-        .search-box input {
-            width: 100%;
-            padding: 18px 22px;
-            border: none;
-            border-radius: 15px;
-            font-size: 17px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-            outline: none;
-        }
+.search-box input {
+    width: 100%;
+    padding: 18px 22px;
+    border: none;
+    border-radius: 15px;
+    font-size: 17px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    outline: none;
+}
 
-        .countries {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            padding: 0 20px 40px;
-        }
+.filters {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 0 20px 25px;
+}
 
-        .countries button {
-            border: none;
-            background: white;
-            padding: 12px 18px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            transition: 0.2s;
-        }
+.filters button {
+    border: none;
+    background: white;
+    padding: 11px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    transition: .2s;
+}
 
-        .countries button:hover {
-            transform: translateY(-2px);
-            background: #4f46e5;
-            color: white;
-        }
+.filters button:hover {
+    background: #4f46e5;
+    color: white;
+    transform: translateY(-2px);
+}
 
-        .container {
-            max-width: 1100px;
-            margin: auto;
-            padding: 0 20px 60px;
-        }
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px 60px;
+}
 
-        .container h2 {
-            text-align: center;
-            margin-bottom: 25px;
-            font-size: 28px;
-        }
+.title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
 
-        .universities {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 22px;
-        }
+.container h2 {
+    font-size: 28px;
+}
 
-        .card {
-            background: white;
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-            transition: 0.25s;
-        }
+#count {
+    color: #64748b;
+    font-size: 15px;
+}
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
-        }
+.universities {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px;
+}
 
-        .card h3 {
-            font-size: 21px;
-            margin-bottom: 8px;
-        }
+.card {
+    background: white;
+    border-radius: 20px;
+    padding: 23px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    transition: .25s;
+}
 
-        .country {
-            color: #4f46e5;
-            font-weight: bold;
-            margin-bottom: 18px;
-        }
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
 
-        .info {
-            line-height: 1.8;
-            color: #475569;
-            margin-bottom: 18px;
-        }
+.card h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
 
-        .apply {
-            display: inline-block;
-            text-decoration: none;
-            background: #4f46e5;
-            color: white;
-            padding: 11px 17px;
-            border-radius: 10px;
-            font-weight: bold;
-        }
+.country {
+    color: #4f46e5;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
 
-        .apply:hover {
-            background: #3730a3;
-        }
+.level {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 14px;
+}
 
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: #64748b;
-        }
+.dream {
+    background: #fee2e2;
+    color: #b91c1c;
+}
 
-        @media (max-width: 600px) {
-            header h1 {
-                font-size: 30px;
-            }
-        }
-    </style>
+.reach {
+    background: #ffedd5;
+    color: #c2410c;
+}
+
+.target {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.safe {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.info {
+    line-height: 1.8;
+    color: #475569;
+    font-size: 14px;
+    margin-bottom: 18px;
+}
+
+.apply {
+    display: inline-block;
+    text-decoration: none;
+    background: #4f46e5;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.apply:hover {
+    background: #3730a3;
+}
+
+.no-results {
+    text-align: center;
+    padding: 50px;
+    color: #64748b;
+    display: none;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #64748b;
+}
+
+@media(max-width:600px) {
+    header h1 {
+        font-size: 34px;
+    }
+
+    .title-row {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
+}
+</style>
 </head>
 
 <body>
@@ -163,153 +217,330 @@
     <input
         type="text"
         id="search"
-        placeholder="🔎 Search university..."
-        onkeyup="searchUniversity()"
+        placeholder="🔎 Search university or country..."
+        oninput="filterUniversities()"
     >
 </div>
 
-<div class="countries">
-    <button onclick="filterCountry('All')">🌎 All</button>
-    <button onclick="filterCountry('USA')">🇺🇸 USA</button>
-    <button onclick="filterCountry('UK')">🇬🇧 UK</button>
-    <button onclick="filterCountry('Italy')">🇮🇹 Italy</button>
-    <button onclick="filterCountry('Canada')">🇨🇦 Canada</button>
-    <button onclick="filterCountry('Malaysia')">🇲🇾 Malaysia</button>
+<div class="filters">
+
+    <button onclick="setCountry('All')">🌎 All</button>
+    <button onclick="setCountry('USA')">🇺🇸 USA</button>
+    <button onclick="setCountry('UK')">🇬🇧 UK</button>
+    <button onclick="setCountry('Italy')">🇮🇹 Italy</button>
+    <button onclick="setCountry('Canada')">🇨🇦 Canada</button>
+    <button onclick="setCountry('Australia')">🇦🇺 Australia</button>
+    <button onclick="setCountry('Malaysia')">🇲🇾 Malaysia</button>
+    <button onclick="setCountry('Netherlands')">🇳🇱 Netherlands</button>
+    <button onclick="setCountry('Germany')">🇩🇪 Germany</button>
+    <button onclick="setCountry('Singapore')">🇸🇬 Singapore</button>
+    <button onclick="setCountry('UAE')">🇦🇪 UAE</button>
+    <button onclick="setCountry('Switzerland')">🇨🇭 Switzerland</button>
+
+</div>
+
+<div class="filters">
+
+    <button onclick="setLevel('All')">🎓 All Levels</button>
+    <button onclick="setLevel('Dream')">🔴 Dream</button>
+    <button onclick="setLevel('Reach')">🟠 Reach</button>
+    <button onclick="setLevel('Target')">🟡 Target</button>
+    <button onclick="setLevel('Safe')">🟢 Safe</button>
+
 </div>
 
 <div class="container">
 
-    <h2>Explore Universities</h2>
-
-    <div class="universities" id="universities">
-
-        <div class="card" data-country="USA">
-            <h3>New York University</h3>
-            <div class="country">🇺🇸 USA</div>
-
-            <div class="info">
-                💰 Tuition: Check official website<br>
-                📝 IELTS: Required<br>
-                🎯 SAT: Program dependent<br>
-                🎁 Scholarships: Available
-            </div>
-
-            <a class="apply" href="https://www.nyu.edu/" target="_blank">
-                University Website →
-            </a>
-        </div>
-
-        <div class="card" data-country="UK">
-            <h3>University of Oxford</h3>
-            <div class="country">🇬🇧 UK</div>
-
-            <div class="info">
-                💰 Tuition: Varies by course<br>
-                📝 IELTS: Required<br>
-                🎯 SAT: Not usually required<br>
-                🎁 Scholarships: Available
-            </div>
-
-            <a class="apply" href="https://www.ox.ac.uk/" target="_blank">
-                University Website →
-            </a>
-        </div>
-
-        <div class="card" data-country="Italy">
-            <h3>University of Bologna</h3>
-            <div class="country">🇮🇹 Italy</div>
-
-            <div class="info">
-                💰 Tuition: Income based<br>
-                📝 IELTS: Program dependent<br>
-                🎯 SAT: Program dependent<br>
-                🎁 Scholarships: Available
-            </div>
-
-            <a class="apply" href="https://www.unibo.it/" target="_blank">
-                University Website →
-            </a>
-        </div>
-
-        <div class="card" data-country="Canada">
-            <h3>University of Toronto</h3>
-            <div class="country">🇨🇦 Canada</div>
-
-            <div class="info">
-                💰 Tuition: Varies by program<br>
-                📝 IELTS: Required<br>
-                🎯 SAT: Program dependent<br>
-                🎁 Scholarships: Available
-            </div>
-
-            <a class="apply" href="https://www.utoronto.ca/" target="_blank">
-                University Website →
-            </a>
-        </div>
-
-        <div class="card" data-country="Malaysia">
-            <h3>University of Malaya</h3>
-            <div class="country">🇲🇾 Malaysia</div>
-
-            <div class="info">
-                💰 Tuition: Varies by program<br>
-                📝 IELTS: Program dependent<br>
-                🎯 SAT: Usually not required<br>
-                🎁 Scholarships: Available
-            </div>
-
-            <a class="apply" href="https://www.um.edu.my/" target="_blank">
-                University Website →
-            </a>
-        </div>
-
+    <div class="title-row">
+        <h2>Explore Universities</h2>
+        <span id="count">100 universities</span>
     </div>
+
+    <div class="universities" id="universities"></div>
+
+    <div class="no-results" id="noResults">
+        😕 No universities found.
+    </div>
+
 </div>
 
 <footer>
-    © UniPath | Find your future 🎓
+    © 2026 UniPath | Find your future 🎓
 </footer>
 
 <script>
 
-function filterCountry(country) {
+const universities = [
 
-    const cards = document.querySelectorAll(".card");
+/* ================= USA ================= */
 
-    cards.forEach(card => {
+["Harvard University","USA","Dream","https://www.harvard.edu/"],
+["Stanford University","USA","Dream","https://www.stanford.edu/"],
+["Princeton University","USA","Dream","https://www.princeton.edu/"],
+["Yale University","USA","Dream","https://www.yale.edu/"],
+["Columbia University","USA","Dream","https://www.columbia.edu/"],
+["University of Pennsylvania","USA","Dream","https://www.upenn.edu/"],
+["Cornell University","USA","Reach","https://www.cornell.edu/"],
+["New York University","USA","Reach","https://www.nyu.edu/"],
+["Boston University","USA","Reach","https://www.bu.edu/"],
+["Northeastern University","USA","Reach","https://www.northeastern.edu/"],
+["University of Miami","USA","Target","https://welcome.miami.edu/"],
+["Arizona State University","USA","Target","https://www.asu.edu/"],
+["Drexel University","USA","Target","https://drexel.edu/"],
+["DePaul University","USA","Safe","https://www.depaul.edu/"],
+["University of South Florida","USA","Safe","https://www.usf.edu/"],
 
-        if (country === "All" || card.dataset.country === country) {
-            card.style.display = "block";
-        } else {
-            card.style.display = "none";
-        }
+/* ================= UK ================= */
 
-    });
+["University of Oxford","UK","Dream","https://www.ox.ac.uk/"],
+["University of Cambridge","UK","Dream","https://www.cam.ac.uk/"],
+["Imperial College London","UK","Dream","https://www.imperial.ac.uk/"],
+["London School of Economics","UK","Dream","https://www.lse.ac.uk/"],
+["University College London","UK","Reach","https://www.ucl.ac.uk/"],
+["University of Edinburgh","UK","Reach","https://www.ed.ac.uk/"],
+["King's College London","UK","Reach","https://www.kcl.ac.uk/"],
+["University of Manchester","UK","Reach","https://www.manchester.ac.uk/"],
+["University of Bristol","UK","Target","https://www.bristol.ac.uk/"],
+["University of Birmingham","UK","Target","https://www.birmingham.ac.uk/"],
+
+/* ================= ITALY ================= */
+
+["University of Bologna","Italy","Target","https://www.unibo.it/"],
+["Bocconi University","Italy","Reach","https://www.unibocconi.it/"],
+["University of Milan","Italy","Target","https://www.unimi.it/"],
+["Sapienza University of Rome","Italy","Target","https://www.uniroma1.it/"],
+["University of Padua","Italy","Target","https://www.unipd.it/"],
+["University of Turin","Italy","Safe","https://www.unito.it/"],
+["University of Pavia","Italy","Safe","https://www.unipv.eu/"],
+["University of Pisa","Italy","Target","https://www.unipi.it/"],
+
+/* ================= CANADA ================= */
+
+["University of Toronto","Canada","Dream","https://www.utoronto.ca/"],
+["McGill University","Canada","Dream","https://www.mcgill.ca/"],
+["University of British Columbia","Canada","Reach","https://www.ubc.ca/"],
+["University of Alberta","Canada","Reach","https://www.ualberta.ca/"],
+["McMaster University","Canada","Reach","https://www.mcmaster.ca/"],
+["University of Waterloo","Canada","Reach","https://uwaterloo.ca/"],
+["Western University","Canada","Target","https://www.uwo.ca/"],
+["York University","Canada","Target","https://www.yorku.ca/"],
+
+/* ================= AUSTRALIA ================= */
+
+["University of Melbourne","Australia","Dream","https://www.unimelb.edu.au/"],
+["University of Sydney","Australia","Dream","https://www.sydney.edu.au/"],
+["UNSW Sydney","Australia","Dream","https://www.unsw.edu.au/"],
+["Monash University","Australia","Reach","https://www.monash.edu/"],
+["University of Queensland","Australia","Reach","https://www.uq.edu.au/"],
+["University of Adelaide","Australia","Target","https://www.adelaide.edu.au/"],
+["University of Western Australia","Australia","Target","https://www.uwa.edu.au/"],
+["University of Technology Sydney","Australia","Target","https://www.uts.edu.au/"],
+
+/* ================= MALAYSIA ================= */
+
+["University of Malaya","Malaysia","Reach","https://www.um.edu.my/"],
+["Universiti Putra Malaysia","Malaysia","Target","https://upm.edu.my/"],
+["Universiti Kebangsaan Malaysia","Malaysia","Target","https://www.ukm.my/"],
+["Universiti Sains Malaysia","Malaysia","Target","https://www.usm.my/"],
+["Taylor's University","Malaysia","Target","https://university.taylors.edu.my/"],
+["Sunway University","Malaysia","Safe","https://sunway.edu.my/"],
+["Monash University Malaysia","Malaysia","Target","https://www.monash.edu.my/"],
+["University of Nottingham Malaysia","Malaysia","Target","https://www.nottingham.edu.my/"],
+
+/* ================= NETHERLANDS ================= */
+
+["University of Amsterdam","Netherlands","Reach","https://www.uva.nl/"],
+["Leiden University","Netherlands","Reach","https://www.universiteitleiden.nl/"],
+["Erasmus University Rotterdam","Netherlands","Reach","https://www.eur.nl/"],
+["Delft University of Technology","Netherlands","Dream","https://www.tudelft.nl/"],
+["Utrecht University","Netherlands","Reach","https://www.uu.nl/"],
+["Maastricht University","Netherlands","Target","https://www.maastrichtuniversity.nl/"],
+["Radboud University","Netherlands","Target","https://www.ru.nl/"],
+["Tilburg University","Netherlands","Target","https://www.tilburguniversity.edu/"],
+
+/* ================= GERMANY ================= */
+
+["Technical University of Munich","Germany","Dream","https://www.tum.de/"],
+["LMU Munich","Germany","Dream","https://www.lmu.de/"],
+["Heidelberg University","Germany","Reach","https://www.uni-heidelberg.de/"],
+["Humboldt University of Berlin","Germany","Reach","https://www.hu-berlin.de/"],
+["Free University of Berlin","Germany","Target","https://www.fu-berlin.de/"],
+["University of Bonn","Germany","Target","https://www.uni-bonn.de/"],
+["University of Hamburg","Germany","Target","https://www.uni-hamburg.de/"],
+["University of Cologne","Germany","Safe","https://www.uni-koeln.de/"],
+
+/* ================= SINGAPORE ================= */
+
+["National University of Singapore","Singapore","Dream","https://www.nus.edu.sg/"],
+["Nanyang Technological University","Singapore","Dream","https://www.ntu.edu.sg/"],
+["Singapore Management University","Singapore","Reach","https://smu.edu.sg/"],
+["Singapore University of Technology and Design","Singapore","Reach","https://www.sutd.edu.sg/"],
+["Singapore University of Social Sciences","Singapore","Target","https://www.suss.edu.sg/"],
+
+/* ================= UAE ================= */
+
+["NYU Abu Dhabi","UAE","Dream","https://nyuad.nyu.edu/"],
+["Khalifa University","UAE","Reach","https://www.ku.ac.ae/"],
+["United Arab Emirates University","UAE","Target","https://www.uaeu.ac.ae/"],
+["American University of Sharjah","UAE","Reach","https://www.aus.edu/"],
+["University of Dubai","UAE","Safe","https://ud.ac.ae/"],
+
+/* ================= SWITZERLAND ================= */
+
+["ETH Zurich","Switzerland","Dream","https://ethz.ch/"],
+["EPFL","Switzerland","Dream","https://www.epfl.ch/"],
+["University of Zurich","Switzerland","Reach","https://www.uzh.ch/"],
+["University of Geneva","Switzerland","Target","https://www.unige.ch/"],
+["University of Lausanne","Switzerland","Target","https://www.unil.ch/"],
+
+/* ================= EXTRA UNIVERSITIES ================= */
+
+["University of Auckland","Australia","Reach","https://www.auckland.ac.nz/"],
+["University of Otago","Australia","Target","https://www.otago.ac.nz/"],
+["University of Glasgow","UK","Reach","https://www.gla.ac.uk/"],
+["University of Leeds","UK","Reach","https://www.leeds.ac.uk/"],
+["University of Nottingham","UK","Target","https://www.nottingham.ac.uk/"],
+["University of Southampton","UK","Target","https://www.southampton.ac.uk/"],
+["University of Exeter","UK","Target","https://www.exeter.ac.uk/"],
+["Queen's University Belfast","UK","Safe","https://www.qub.ac.uk/"],
+["University of Ottawa","Canada","Target","https://www.uottawa.ca/"],
+["Simon Fraser University","Canada","Target","https://www.sfu.ca/"],
+["University of Calgary","Canada","Target","https://www.ucalgary.ca/"],
+["Dalhousie University","Canada","Safe","https://www.dal.ca/"]
+
+];
+
+/* ================= CREATE CARDS ================= */
+
+const container = document.getElementById("universities");
+
+universities.forEach((uni, index) => {
+
+    const [name, country, level, website] = uni;
+
+    const card = document.createElement("div");
+
+    card.className = "card";
+    card.dataset.country = country;
+    card.dataset.level = level;
+
+    let emoji = "🌎";
+
+    if(country === "USA") emoji = "🇺🇸";
+    if(country === "UK") emoji = "🇬🇧";
+    if(country === "Italy") emoji = "🇮🇹";
+    if(country === "Canada") emoji = "🇨🇦";
+    if(country === "Australia") emoji = "🇦🇺";
+    if(country === "Malaysia") emoji = "🇲🇾";
+    if(country === "Netherlands") emoji = "🇳🇱";
+    if(country === "Germany") emoji = "🇩🇪";
+    if(country === "Singapore") emoji = "🇸🇬";
+    if(country === "UAE") emoji = "🇦🇪";
+    if(country === "Switzerland") emoji = "🇨🇭";
+
+    card.innerHTML = `
+        <h3>${name}</h3>
+
+        <div class="country">
+            ${emoji} ${country}
+        </div>
+
+        <span class="level ${level.toLowerCase()}">
+            ${level}
+        </span>
+
+        <div class="info">
+            🎓 Undergraduate<br>
+            📝 English requirement: Check program<br>
+            🎯 SAT/ACT: Program dependent<br>
+            🎁 Scholarships: Check university
+        </div>
+
+        <a class="apply"
+           href="${website}"
+           target="_blank"
+           rel="noopener noreferrer">
+           University Website →
+        </a>
+    `;
+
+    container.appendChild(card);
+});
+
+let selectedCountry = "All";
+let selectedLevel = "All";
+
+/* ================= FILTER COUNTRY ================= */
+
+function setCountry(country) {
+    selectedCountry = country;
+    filterUniversities();
 }
 
-function searchUniversity() {
+/* ================= FILTER LEVEL ================= */
 
-    const search = document
-        .getElementById("search")
+function setLevel(level) {
+    selectedLevel = level;
+    filterUniversities();
+}
+
+/* ================= SEARCH + FILTER ================= */
+
+function filterUniversities() {
+
+    const search =
+        document.getElementById("search")
         .value
-        .toLowerCase();
+        .toLowerCase()
+        .trim();
 
     const cards = document.querySelectorAll(".card");
 
+    let visible = 0;
+
     cards.forEach(card => {
 
-        const name = card
-            .querySelector("h3")
+        const name =
+            card.querySelector("h3")
             .innerText
             .toLowerCase();
 
-        if (name.includes(search)) {
+        const country =
+            card.dataset.country.toLowerCase();
+
+        const level =
+            card.dataset.level;
+
+        const matchesSearch =
+            name.includes(search) ||
+            country.includes(search);
+
+        const matchesCountry =
+            selectedCountry === "All" ||
+            card.dataset.country === selectedCountry;
+
+        const matchesLevel =
+            selectedLevel === "All" ||
+            level === selectedLevel;
+
+        if (
+            matchesSearch &&
+            matchesCountry &&
+            matchesLevel
+        ) {
             card.style.display = "block";
+            visible++;
         } else {
             card.style.display = "none";
         }
 
     });
+
+    document.getElementById("count").innerText =
+        visible + " universities";
+
+    document.getElementById("noResults").style.display =
+        visible === 0 ? "block" : "none";
 }
 
 </script>
