@@ -3,22 +3,316 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Asal University Finder</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2ff, #f8fafc);
+            color: #172554;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px 35px;
+        }
+
+        header h1 {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        header p {
+            color: #64748b;
+            font-size: 18px;
+        }
+
+        .search-box {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            padding: 0 20px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 18px 22px;
+            border: none;
+            border-radius: 15px;
+            font-size: 17px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            outline: none;
+        }
+
+        .countries {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 0 20px 40px;
+        }
+
+        .countries button {
+            border: none;
+            background: white;
+            padding: 12px 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            transition: 0.2s;
+        }
+
+        .countries button:hover {
+            transform: translateY(-2px);
+            background: #4f46e5;
+            color: white;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 0 20px 60px;
+        }
+
+        .container h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 28px;
+        }
+
+        .universities {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 22px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: 0.25s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        .card h3 {
+            font-size: 21px;
+            margin-bottom: 8px;
+        }
+
+        .country {
+            color: #4f46e5;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+
+        .info {
+            line-height: 1.8;
+            color: #475569;
+            margin-bottom: 18px;
+        }
+
+        .apply {
+            display: inline-block;
+            text-decoration: none;
+            background: #4f46e5;
+            color: white;
+            padding: 11px 17px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .apply:hover {
+            background: #3730a3;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #64748b;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 30px;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
+<header>
     <h1>🎓 Asal University Finder</h1>
     <p>Find your university. Build your future.</p>
+</header>
 
-    <input type="text" placeholder="🔎 Search university...">
+<div class="search-box">
+    <input
+        type="text"
+        id="search"
+        placeholder="🔎 Search university..."
+        onkeyup="searchUniversity()"
+    >
+</div>
+
+<div class="countries">
+    <button onclick="filterCountry('All')">🌎 All</button>
+    <button onclick="filterCountry('USA')">🇺🇸 USA</button>
+    <button onclick="filterCountry('UK')">🇬🇧 UK</button>
+    <button onclick="filterCountry('Italy')">🇮🇹 Italy</button>
+    <button onclick="filterCountry('Canada')">🇨🇦 Canada</button>
+    <button onclick="filterCountry('Malaysia')">🇲🇾 Malaysia</button>
+</div>
+
+<div class="container">
 
     <h2>Explore Universities</h2>
 
-    <button>🇺🇸 USA</button>
-    <button>🇬🇧 UK</button>
-    <button>🇮🇹 Italy</button>
-    <button>🇨🇦 Canada</button>
-    <button>🇲🇾 Malaysia</button>
+    <div class="universities" id="universities">
+
+        <div class="card" data-country="USA">
+            <h3>New York University</h3>
+            <div class="country">🇺🇸 USA</div>
+
+            <div class="info">
+                💰 Tuition: Check official website<br>
+                📝 IELTS: Required<br>
+                🎯 SAT: Program dependent<br>
+                🎁 Scholarships: Available
+            </div>
+
+            <a class="apply" href="https://www.nyu.edu/" target="_blank">
+                University Website →
+            </a>
+        </div>
+
+        <div class="card" data-country="UK">
+            <h3>University of Oxford</h3>
+            <div class="country">🇬🇧 UK</div>
+
+            <div class="info">
+                💰 Tuition: Varies by course<br>
+                📝 IELTS: Required<br>
+                🎯 SAT: Not usually required<br>
+                🎁 Scholarships: Available
+            </div>
+
+            <a class="apply" href="https://www.ox.ac.uk/" target="_blank">
+                University Website →
+            </a>
+        </div>
+
+        <div class="card" data-country="Italy">
+            <h3>University of Bologna</h3>
+            <div class="country">🇮🇹 Italy</div>
+
+            <div class="info">
+                💰 Tuition: Income based<br>
+                📝 IELTS: Program dependent<br>
+                🎯 SAT: Program dependent<br>
+                🎁 Scholarships: Available
+            </div>
+
+            <a class="apply" href="https://www.unibo.it/" target="_blank">
+                University Website →
+            </a>
+        </div>
+
+        <div class="card" data-country="Canada">
+            <h3>University of Toronto</h3>
+            <div class="country">🇨🇦 Canada</div>
+
+            <div class="info">
+                💰 Tuition: Varies by program<br>
+                📝 IELTS: Required<br>
+                🎯 SAT: Program dependent<br>
+                🎁 Scholarships: Available
+            </div>
+
+            <a class="apply" href="https://www.utoronto.ca/" target="_blank">
+                University Website →
+            </a>
+        </div>
+
+        <div class="card" data-country="Malaysia">
+            <h3>University of Malaya</h3>
+            <div class="country">🇲🇾 Malaysia</div>
+
+            <div class="info">
+                💰 Tuition: Varies by program<br>
+                📝 IELTS: Program dependent<br>
+                🎯 SAT: Usually not required<br>
+                🎁 Scholarships: Available
+            </div>
+
+            <a class="apply" href="https://www.um.edu.my/" target="_blank">
+                University Website →
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    © 2026 Asal University Finder | Find your future 🎓
+</footer>
+
+<script>
+
+function filterCountry(country) {
+
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+
+        if (country === "All" || card.dataset.country === country) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+
+    });
+}
+
+function searchUniversity() {
+
+    const search = document
+        .getElementById("search")
+        .value
+        .toLowerCase();
+
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+
+        const name = card
+            .querySelector("h3")
+            .innerText
+            .toLowerCase();
+
+        if (name.includes(search)) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+
+    });
+}
+
+</script>
 
 </body>
 </html>
