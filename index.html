@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UniPath 2.0 — Global Education Finder</title>
+  <title>UniPath 2.0 — Global Education & Financial Matcher</title>
   <style>
     :root {
       --primary: #2563eb;
@@ -24,42 +24,46 @@
     /* Navigation */
     header { background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
     .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem; }
-    .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; cursor: pointer; }
-    .nav-links { display: flex; gap: 1rem; }
+    .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); cursor: pointer; }
+    .nav-links { display: flex; gap: 0.5rem; }
     .nav-btn { background: none; border: none; font-weight: 600; color: var(--text-muted); cursor: pointer; padding: 0.5rem 0.75rem; border-radius: 6px; }
     .nav-btn.active, .nav-btn:hover { color: var(--primary); background: #eff6ff; }
 
-    /* Layout */
+    /* Container */
     .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
     .page { display: none; }
     .page.active { display: block; }
 
-    /* Hero & Search */
+    /* Hero */
     .hero { text-align: center; margin-bottom: 2rem; }
     .hero h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
     .search-bar { display: flex; gap: 0.5rem; max-width: 600px; margin: 1rem auto; }
     .search-bar input { flex: 1; padding: 0.75rem; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; }
-    
+
     /* Filters */
-    .filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem; background: #fff; padding: 1rem; border-radius: var(--radius); border: 1px solid var(--border); }
+    .filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 2rem; background: #fff; padding: 1rem; border-radius: var(--radius); border: 1px solid var(--border); }
     .filter-group label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.25rem; font-weight: 600; }
     .filter-group select { width: 100%; padding: 0.5rem; border: 1px solid var(--border); border-radius: 6px; }
 
-    /* University Grid */
-    .uni-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
-    .uni-card { background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border); padding: 1.25rem; position: relative; box-shadow: var(--shadow); transition: transform 0.2s; }
+    /* University Cards Grid */
+    .uni-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+    .uni-card { background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border); padding: 1.25rem; position: relative; box-shadow: var(--shadow); transition: transform 0.2s; display: flex; flex-direction: column; justify-content: space-between; }
     .uni-card:hover { transform: translateY(-3px); }
-    .badge { position: absolute; top: 1rem; right: 1rem; padding: 0.25rem 0.5rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+    
+    .badge { position: absolute; top: 1rem; right: 1rem; padding: 0.25rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
     .badge-dream { background: #fef3c7; color: #b45309; }
     .badge-target { background: #dbeafe; color: #1d4ed8; }
     .badge-safe { background: #dcfce7; color: #15803d; }
     .badge-reach { background: #f3e8ff; color: #6b21a8; }
-    .match-score { font-size: 1.25rem; font-weight: 800; color: var(--primary); margin: 0.5rem 0; }
-    
+
+    .fin-tag { display: inline-block; background: #f1f5f9; color: #334155; font-size: 0.8rem; font-weight: 600; padding: 0.2rem 0.5rem; border-radius: 4px; margin-top: 0.4rem; }
+    .match-score { font-size: 1.2rem; font-weight: 800; color: var(--primary); margin: 0.5rem 0; }
+
     /* Buttons */
-    .btn { display: inline-block; width: 100%; padding: 0.6rem; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; text-align: center; background: var(--primary); color: #fff; margin-top: 0.5rem; }
-    .btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); }
-    .btn-group { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+    .btn { display: inline-block; width: 100%; padding: 0.6rem; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; text-align: center; background: var(--primary); color: #fff; }
+    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+    .btn-outline:hover { background: #f8fafc; }
+    .btn-group { display: flex; gap: 0.5rem; margin-top: 1rem; }
 
     /* Quiz */
     .quiz-card { max-width: 600px; margin: 0 auto; background: #fff; padding: 2rem; border-radius: var(--radius); border: 1px solid var(--border); }
@@ -67,18 +71,16 @@
     .quiz-step.active { display: block; }
     .quiz-options { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.5rem 0; }
     .quiz-btn { padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; background: #fff; cursor: pointer; text-align: left; font-size: 1rem; }
-    .quiz-btn.selected { border-color: var(--primary); background: #eff6ff; font-weight: 600; }
+    .quiz-btn:hover { border-color: var(--primary); background: #eff6ff; }
 
-    /* Compare & Details Tables */
+    /* Tables */
     table { width: 100%; border-collapse: collapse; margin-top: 1rem; background: #fff; border-radius: var(--radius); overflow: hidden; }
-    th, td { padding: 0.75rem 1rem; border: 1px solid var(--border); text-align: left; }
+    th, td { padding: 0.75rem 1rem; border: 1px solid var(--border); text-align: left; font-size: 0.9rem; }
     th { background: #f1f5f9; }
 
-    /* Mobile Responsive */
     @media (max-width: 768px) {
-      .nav-container { flex-direction: column; gap: 1rem; }
+      .nav-container { flex-direction: column; gap: 0.5rem; }
       .search-bar { flex-direction: column; }
-      .btn-group { flex-direction: column; }
     }
   </style>
 </head>
@@ -98,12 +100,13 @@
 
   <div class="container">
     
+    <!-- HOME PAGE -->
     <div id="page-home" class="page active">
       <div class="hero">
-        <h1>O'zingizga Mos Universitetni Toping</h1>
-        <p>Filtrlardan foydalaning yoki Profile Quiz orqali moslik foizini hisoblang.</p>
+        <h1>Global Universitetlar va Moliyaviy Model Matcher</h1>
+        <p>Ko'plab davlatlar, oliygohlar va ularning grant imkoniyatlari bo'yicha qidiring.</p>
         <div class="search-bar">
-          <input type="text" id="search-input" placeholder="Universitet nomi yoki Yo'nalish..." oninput="renderUniversities()">
+          <input type="text" id="search-input" placeholder="Universitet, yo'nalish yoki grant nomi..." oninput="renderUniversities()">
         </div>
       </div>
 
@@ -113,9 +116,25 @@
           <select id="filter-country" onchange="renderUniversities()">
             <option value="">Barchasi</option>
             <option value="Italy">Italiya</option>
+            <option value="Germany">Germaniya</option>
             <option value="USA">AQSH</option>
             <option value="UK">Buyuk Britaniya</option>
-            <option value="Germany">Germaniya</option>
+            <option value="Hungary">Vengriya</option>
+            <option value="Poland">Polsha</option>
+            <option value="Austria">Avstriya</option>
+            <option value="South Korea">Janubiy Koreya</option>
+            <option value="Japan">Yaponiya</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Moliyaviy Model</label>
+          <select id="filter-fin" onchange="renderUniversities()">
+            <option value="">Barchasi</option>
+            <option value="ISEE / Need-based">ISEE / Daromadga bog'liq</option>
+            <option value="Full Need-based Aid">100% Need-based Aid</option>
+            <option value="Low-Tuition / Free">Subsidiyalangan / Bepul</option>
+            <option value="Government Full Scholarship">To'liq Hukumat Granti</option>
+            <option value="Merit-based">Merit-based (Akademik Grant)</option>
           </select>
         </div>
         <div class="filter-group">
@@ -126,44 +145,37 @@
             <option value="Master">Magistratura</option>
           </select>
         </div>
-        <div class="filter-group">
-          <label>Maks. Kontrakt ($/yil)</label>
-          <select id="filter-tuition" onchange="renderUniversities()">
-            <option value="999999">Cheklovsiz</option>
-            <option value="3000">3,000$ gacha</option>
-            <option value="10000">10,000$ gacha</option>
-          </select>
-        </div>
       </div>
 
       <div id="uni-list" class="uni-grid"></div>
     </div>
 
+    <!-- QUIZ PAGE -->
     <div id="page-quiz" class="page">
       <div class="quiz-card">
-        <h2>🧠 Profile Match Quiz (6 Bosqich)</h2>
-        <p style="color: var(--text-muted); margin-bottom: 1rem;">O'z ko'rsatkichlaringizni kiriting va moslik % ni bilib oling.</p>
+        <h2>🧠 Profile & Financial Match Quiz</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">O'z imkoniyatlaringizni baholab, mos moliya va grant modellarini toping.</p>
 
         <div id="quiz-step-1" class="quiz-step active">
-          <h3>1. IELTS / TOEFL Ballingiz?</h3>
+          <h3>1. IELTS / TOEFL ballingiz qaysi oraliqda?</h3>
           <div class="quiz-options">
-            <button class="quiz-btn" onclick="setQuizData('ielts', 6.0)">6.0 yoki pastroq</button>
-            <button class="quiz-btn" onclick="setQuizData('ielts', 7.0)">6.5 - 7.0</button>
-            <button class="quiz-btn" onclick="setQuizData('ielts', 8.5)">7.5 - 8.5+</button>
+            <button class="quiz-btn" onclick="setQuizData('ielts', 6.0)">6.0 yoki unchalik yuqori emas</button>
+            <button class="quiz-btn" onclick="setQuizData('ielts', 7.0)">6.5 — 7.0 (Yaxshi)</button>
+            <button class="quiz-btn" onclick="setQuizData('ielts', 8.5)">7.5 — 8.5+ (A'lo)</button>
           </div>
         </div>
 
         <div id="quiz-step-2" class="quiz-step">
-          <h3>2. GPA (O'rtacha baho) ko'rsatkichingiz?</h3>
+          <h3>2. O'rtacha akademik bahongiz (GPA)?</h3>
           <div class="quiz-options">
-            <button class="quiz-btn" onclick="setQuizData('gpa', 3.0)">3.0 gacha (70-80%)</button>
-            <button class="quiz-btn" onclick="setQuizData('gpa', 3.7)">3.5 - 3.8 (85-95%)</button>
-            <button class="quiz-btn" onclick="setQuizData('gpa', 4.0)">3.9 - 4.0 (95-100%)</button>
+            <button class="quiz-btn" onclick="setQuizData('gpa', 3.0)">O'rtacha (70-80%)</button>
+            <button class="quiz-btn" onclick="setQuizData('gpa', 3.7)">Yaxshi (85-95%)</button>
+            <button class="quiz-btn" onclick="setQuizData('gpa', 4.0)">A'lo (95-100%)</button>
           </div>
         </div>
 
         <div id="quiz-step-3" class="quiz-step">
-          <h3>3. Qaysi darajada o'qimoqchisiz?</h3>
+          <h3>3. Qaysi ta'lim bosqichini rejalashtiryapsiz?</h3>
           <div class="quiz-options">
             <button class="quiz-btn" onclick="setQuizData('degree', 'Bachelor')">Bakalavr</button>
             <button class="quiz-btn" onclick="setQuizData('degree', 'Master')">Magistratura</button>
@@ -171,68 +183,73 @@
         </div>
 
         <div id="quiz-step-4" class="quiz-step">
-          <h3>4. Qaysi sohani tanlaysiz?</h3>
+          <h3>4. Asosiy qiziqqan sohangiz?</h3>
           <div class="quiz-options">
-            <button class="quiz-btn" onclick="setQuizData('field', 'Economics')">Iqtisodiyot / Biznes</button>
-            <button class="quiz-btn" onclick="setQuizData('field', 'CS')">Informatika / IT</button>
-            <button class="quiz-btn" onclick="setQuizData('field', 'Politics')">Siyosat / Xalqaro munosabatlar</button>
+            <button class="quiz-btn" onclick="setQuizData('field', 'Economics')">Iqtisod / Biznes / Law</button>
+            <button class="quiz-btn" onclick="setQuizData('field', 'CS')">IT / Data Science / Injiniring</button>
+            <button class="quiz-btn" onclick="setQuizData('field', 'Politics')">Siyosatshunoslik / Xalqaro Munosabatlar</button>
           </div>
         </div>
 
         <div id="quiz-step-5" class="quiz-step">
-          <h3>5. Yillik maksimal byudjetingiz?</h3>
+          <h3>5. Oila daromadingiz / Kontrakt to'lash imkoniyati?</h3>
           <div class="quiz-options">
-            <button class="quiz-btn" onclick="setQuizData('budget', 2000)">$0 - $2,000 (Grant / Arzon)</button>
-            <button class="quiz-btn" onclick="setQuizData('budget', 10000)">$2,000 - $10,000</button>
-            <button class="quiz-btn" onclick="setQuizData('budget', 50000)">Cheklovsiz</button>
+            <button class="quiz-btn" onclick="setQuizData('budgetLevel', 'low')">Minimal (Grant va Stipendiya kerak)</button>
+            <button class="quiz-btn" onclick="setQuizData('budgetLevel', 'mid')">O'rtacha (Arzon kontrakt bo'lsa to'layman)</button>
+            <button class="quiz-btn" onclick="setQuizData('budgetLevel', 'high')">Yuqori (To'liq kontrakt ham mumkin)</button>
           </div>
         </div>
 
         <div id="quiz-step-6" class="quiz-step">
-          <h3>6. Qaysi region ma'qul?</h3>
+          <h3>6. Afzal ko'rilgan Hudud?</h3>
           <div class="quiz-options">
             <button class="quiz-btn" onclick="setQuizData('region', 'Europe')">Yevropa</button>
-            <button class="quiz-btn" onclick="setQuizData('region', 'USA')">AQSH / Amerika</button>
-            <button class="quiz-btn" onclick="setQuizData('region', 'Any')">Farqi yo'q</button>
+            <button class="quiz-btn" onclick="setQuizData('region', 'Asia')">Osiyo</button>
+            <button class="quiz-btn" onclick="setQuizData('region', 'USA')">AQSH / Shimoliy Amerika</button>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- DETAILS PAGE -->
     <div id="page-details" class="page">
-      <button class="btn btn-outline" style="width: auto; margin-bottom: 1rem;" onclick="showPage('home')">← Ortga qarish</button>
+      <button class="btn btn-outline" style="width: auto; margin-bottom: 1rem;" onclick="showPage('home')">← Ortga qaytish</button>
       <div id="details-content"></div>
     </div>
 
+    <!-- SAVED PAGE -->
     <div id="page-saved" class="page">
       <h2>❤️ Saqlangan Universitetlar</h2>
       <div id="saved-list" class="uni-grid" style="margin-top: 1rem;"></div>
     </div>
 
+    <!-- COMPARE PAGE -->
     <div id="page-compare" class="page">
-      <h2>⚖️ Universitetlarni Taqqoslash</h2>
+      <h2>⚖️ Universitet va Grant Shartlarini Taqqoslash</h2>
       <div id="compare-table-container"></div>
     </div>
 
   </div>
 
   <script>
-    // Database
+    // Ko'paytirilgan kengaytirilgan ma'lumotlar bazasi
     const universities = [
+      // ITALIYA
       {
         id: 1,
-        name: "University of Milan",
+        name: "University of Milan (UniMi)",
         country: "Italy",
         region: "Europe",
         degree: "Bachelor",
         field: "Economics",
-        tuition: 1600,
         minIelts: 6.5,
         minGpa: 3.2,
-        scholarship: "DSU Scholarship (To'liq bepul + 7,000€/yil stipendiya)",
-        deadline: "2027-04-30",
+        finModel: "ISEE / Need-based",
+        tuitionRange: "156 € – 4,000 € / yil (ISEE daromadiga bog'liq)",
+        scholarship: "DSU Grant (To'liq bepul kontrakt + ~7,000 €/yil stipendiya)",
+        deadline: "Aprel - May",
         category: "Target",
-        desc: "Italiyaning yetakchi davlat universiteti. Xalqaro talabalar uchun keng imkoniyatlar mavjud."
+        desc: "Italiyaning nufuzli davlat universiteti. DSU granti orqali bepul ta'lim va oylik stipendiya olish imkoniyati yuqori."
       },
       {
         id: 2,
@@ -241,52 +258,205 @@
         region: "Europe",
         degree: "Bachelor",
         field: "Politics",
-        tuition: 1000,
         minIelts: 6.0,
         minGpa: 3.0,
-        scholarship: "LazioDisco Grant",
-        deadline: "2027-05-15",
+        finModel: "ISEE / Need-based",
+        tuitionRange: "300 € – 1,500 € / yil",
+        scholarship: "LazioDisco Regional Grant",
+        deadline: "May - Iyun",
         category: "Safe",
-        desc: "Yevropadagi eng qadimiy va yirik universitetlardan biri."
+        desc: "Yevropadagi eng yirik oliygohlardan biri. Kam ta'minlangan oilalardan kelgan talabalarga grantlar taqdim etiladi."
       },
       {
         id: 3,
+        name: "University of Florence (UniFI)",
+        country: "Italy",
+        region: "Europe",
+        degree: "Bachelor",
+        field: "Economics",
+        minIelts: 6.0,
+        minGpa: 3.1,
+        finModel: "ISEE / Need-based",
+        tuitionRange: "156 € – 2,800 € / yil",
+        scholarship: "DSU Toscana Scholarship",
+        deadline: "Aprel - May",
+        category: "Target",
+        desc: "Florensiyadagi mashhur davlat universiteti, iqtisod va xalqaro munosabatlar yo'nalishida ingliz tilida dasturlar mavjud."
+      },
+      {
+        id: 4,
+        name: "University of Padua",
+        country: "Italy",
+        region: "Europe",
+        degree: "Master",
+        field: "CS",
+        minIelts: 6.5,
+        minGpa: 3.4,
+        finModel: "Merit-based",
+        tuitionRange: "2,600 € / yil (Arzonroq ko'rsatkichlar ham bor)",
+        scholarship: "Padua International Excellence Scholarship (8,000 €/yil)",
+        deadline: "Mart - Aprel",
+        category: "Reach",
+        desc: "1222-yilda tashkil topgan Yevropaning eng qadimiy universitetlaridan biri."
+      },
+
+      // GERMANIYA
+      {
+        id: 5,
+        name: "Technical University of Munich (TUM)",
+        country: "Germany",
+        region: "Europe",
+        degree: "Master",
+        field: "CS",
+        minIelts: 7.0,
+        minGpa: 3.5,
+        finModel: "Low-Tuition / Free",
+        tuitionRange: "2,000 € – 6,000 € / semestr",
+        scholarship: "DAAD va Deutschlandstipendium",
+        deadline: "31-May",
+        category: "Reach",
+        desc: "Germaniyaning muhandislik va IT sohasi bo'yicha Top 1 universiteti."
+      },
+      {
+        id: 6,
+        name: "Free University of Berlin (FU Berlin)",
+        country: "Germany",
+        region: "Europe",
+        degree: "Master",
+        field: "Politics",
+        minIelts: 7.0,
+        minGpa: 3.3,
+        finModel: "Low-Tuition / Free",
+        tuitionRange: "0 € (Faqat ~300 € semestrlik transport badali)",
+        scholarship: "DAAD Master Studies Scholarship",
+        deadline: "Iyul",
+        category: "Target",
+        desc: "Germaniya davlat oliygohlarida kontrakt to'lovi yo'q, ta'lim bepul."
+      },
+
+      // VENGRIYA & POLSHA & AVSTRIYA
+      {
+        id: 7,
+        name: "Eötvös Loránd University (ELTE)",
+        country: "Hungary",
+        region: "Europe",
+        degree: "Bachelor",
+        field: "CS",
+        minIelts: 6.0,
+        minGpa: 3.0,
+        finModel: "Government Full Scholarship",
+        tuitionRange: "3,000 € – 5,000 € / yil (Grant doirasida Bepul)",
+        scholarship: "Stipendium Hungaricum (To'liq kontrakt + Bepul yotoqxona + Oylik stipendiya)",
+        deadline: "15-Yanvar",
+        category: "Safe",
+        desc: "Vengriyaning eng nufuzli universiteti. Stipendium Hungaricum orqali 100% bepul o'qish imkoniyati bor."
+      },
+      {
+        id: 8,
+        name: "University of Warsaw",
+        country: "Poland",
+        region: "Europe",
+        degree: "Bachelor",
+        field: "Economics",
+        minIelts: 6.0,
+        minGpa: 3.0,
+        finModel: "Low-Tuition / Free",
+        tuitionRange: "2,000 € – 3,500 € / yil",
+        scholarship: "NAWA Poland Scholarship",
+        deadline: "Iyun",
+        category: "Safe",
+        desc: "Polshaning N1 universiteti, Yevropada arzon va sifatli ta'lim olish uchun ideal tanlov."
+      },
+      {
+        id: 9,
+        name: "University of Vienna",
+        country: "Austria",
+        region: "Europe",
+        degree: "Master",
+        field: "Politics",
+        minIelts: 6.5,
+        minGpa: 3.2,
+        finModel: "Low-Tuition / Free",
+        tuitionRange: "1,500 € / yil (Non-EU talabalar uchun arzon kontrakt)",
+        scholarship: "Ernst Mach Grant",
+        deadline: "Aprel",
+        category: "Target",
+        desc: "Avstriyaning markaziy va eng yirik oliygohi. Yillik kontrakt narxi juda past."
+      },
+
+      // AQSH & BUYUK BRITANIYA
+      {
+        id: 10,
         name: "Harvard University",
         country: "USA",
         region: "USA",
         degree: "Bachelor",
         field: "CS",
-        tuition: 55000,
         minIelts: 7.5,
         minGpa: 3.9,
-        scholarship: "Need-based Full Financial Aid",
-        deadline: "2027-01-01",
+        finModel: "Full Need-based Aid",
+        tuitionRange: "$0 – $55,000+ / yil",
+        scholarship: "100% Need-Blind Financial Aid ($85k gacha daromad bo'lsa 100% bepul)",
+        deadline: "1-Yanvar",
         category: "Dream",
-        desc: "Dunyoning eng nufuzli Ivy League universiteti."
+        desc: "Talabaning oilaviy moliyaviy holatiga qarab 100% barcha xarajatlarni qoplaydi."
       },
       {
-        id: 4,
-        name: "Technical University of Munich",
-        country: "Germany",
+        id: 11,
+        name: "University of Oxford",
+        country: "UK",
         region: "Europe",
         degree: "Master",
-        field: "CS",
-        tuition: 3000,
-        minIelts: 7.0,
+        field: "Politics",
+        minIelts: 7.5,
+        minGpa: 3.8,
+        finModel: "Merit-based",
+        tuitionRange: "£30,000 – £45,000 / yil",
+        scholarship: "Clarendon Scholarship & Chevening",
+        deadline: "Dekabr - Yanvar",
+        category: "Dream",
+        desc: "Buyuk Britaniyaning eng oliy akademik universiteti."
+      },
+
+      // OSIYO (JANUBIY KOREYA & YAPONIYA)
+      {
+        id: 12,
+        name: "Seoul National University (SNU)",
+        country: "South Korea",
+        region: "Asia",
+        degree: "Bachelor",
+        field: "Economics",
+        minIelts: 6.5,
         minGpa: 3.5,
-        scholarship: "DAAD Scholarship",
-        deadline: "2027-05-31",
+        finModel: "Government Full Scholarship",
+        tuitionRange: "$4,000 – $6,000 / yil",
+        scholarship: "GKS (Global Korea Scholarship - To'liq kontrakt + Avia chipta + Oylik)",
+        deadline: "Mart",
+        category: "Target",
+        desc: "Janubiy Koreyaning N1 universiteti. GKS granti orqali to'liq bepul o'qish mumkin."
+      },
+      {
+        id: 13,
+        name: "University of Tokyo",
+        country: "Japan",
+        region: "Asia",
+        degree: "Master",
+        field: "CS",
+        minIelts: 7.0,
+        minGpa: 3.6,
+        finModel: "Government Full Scholarship",
+        tuitionRange: "$5,000 / yil",
+        scholarship: "MEXT Japanese Government Scholarship",
+        deadline: "May",
         category: "Reach",
-        desc: "Germaniyaning muhandislik va IT bo'yicha N1 universiteti."
+        desc: "Yaponiyaning yetakchi oliygohi, MEXT granti to'liq kontrakt va yashash harajatlarini yopadi."
       }
     ];
 
-    // State
     let savedUnis = [];
-    let userProfile = { ielts: 0, gpa: 0, degree: '', field: '', budget: 999999, region: '' };
+    let userProfile = { ielts: 0, gpa: 0, degree: '', field: '', budgetLevel: 'mid', region: '' };
     let currentStep = 1;
 
-    // Navigation
     function showPage(pageId) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -296,20 +466,19 @@
       if(pageId === 'compare') renderCompare();
     }
 
-    // Match Calculation Algorithm
     function calculateMatch(uni) {
       if(!userProfile.ielts) return null;
       let score = 100;
       
       if(userProfile.ielts < uni.minIelts) score -= 25;
       if(userProfile.gpa < uni.minGpa) score -= 25;
-      if(userProfile.budget < uni.tuition) score -= 30;
       if(userProfile.degree && userProfile.degree !== uni.degree) score -= 10;
-      
+
+      if(userProfile.budgetLevel === 'low' && (uni.finModel.includes("Need-based") || uni.finModel.includes("Scholarship") || uni.finModel.includes("Free"))) score += 5;
+
       return Math.max(score, 20);
     }
 
-    // Categorize dynamic tag
     function getCategoryBadge(uni, match) {
       let cat = uni.category;
       if(match) {
@@ -318,28 +487,22 @@
         else if(match >= 50) cat = "Reach";
         else cat = "Dream";
       }
-      const badgeClasses = {
-        'Dream': 'badge-dream',
-        'Target': 'badge-target',
-        'Safe': 'badge-safe',
-        'Reach': 'badge-reach'
-      };
+      const badgeClasses = { 'Dream':'badge-dream', 'Target':'badge-target', 'Safe':'badge-safe', 'Reach':'badge-reach' };
       return `<span class="badge ${badgeClasses[cat] || 'badge-target'}">${cat}</span>`;
     }
 
-    // Render Main List
     function renderUniversities() {
       const search = document.getElementById('search-input').value.toLowerCase();
       const country = document.getElementById('filter-country').value;
+      const fin = document.getElementById('filter-fin').value;
       const degree = document.getElementById('filter-degree').value;
-      const tuition = parseFloat(document.getElementById('filter-tuition').value);
 
       const filtered = universities.filter(u => {
-        const matchesSearch = u.name.toLowerCase().includes(search) || u.field.toLowerCase().includes(search);
+        const matchesSearch = u.name.toLowerCase().includes(search) || u.country.toLowerCase().includes(search) || u.field.toLowerCase().includes(search) || u.scholarship.toLowerCase().includes(search);
         const matchesCountry = !country || u.country === country;
+        const matchesFin = !fin || u.finModel === fin;
         const matchesDegree = !degree || u.degree === degree;
-        const matchesTuition = u.tuition <= tuition;
-        return matchesSearch && matchesCountry && matchesDegree && matchesTuition;
+        return matchesSearch && matchesCountry && matchesFin && matchesDegree;
       });
 
       const container = document.getElementById('uni-list');
@@ -348,22 +511,28 @@
         const isSaved = savedUnis.includes(u.id);
         return `
           <div class="uni-card">
-            ${getCategoryBadge(u, match)}
-            <h3>${u.name}</h3>
-            <p style="color: var(--text-muted);">${u.country} • ${u.degree}</p>
-            ${match ? `<div class="match-score">🎯 ${match}% Match</div>` : ''}
-            <p style="margin-top:0.5rem;"><strong>Kontrakt:</strong> $${u.tuition}/yil</p>
-            <p><strong>Min IELTS:</strong> ${u.minIelts} | <strong>GPA:</strong> ${u.minGpa}</p>
+            <div>
+              ${getCategoryBadge(u, match)}
+              <h3 style="padding-right: 60px;">${u.name}</h3>
+              <p style="color: var(--text-muted); font-size:0.9rem;">${u.country} • ${u.degree}</p>
+              
+              <span class="fin-tag">🏷️ ${u.finModel}</span>
+
+              ${match ? `<div class="match-score">🎯 ${match}% Match</div>` : ''}
+
+              <p style="margin-top:0.8rem; font-size: 0.9rem;"><strong>📊 Kontrakt/To'lov:</strong><br>${u.tuitionRange}</p>
+              <p style="margin-top:0.4rem; font-size: 0.85rem; color: #15803d;"><strong>🎁 Grant:</strong> ${u.scholarship}</p>
+            </div>
+            
             <div class="btn-group">
-              <button class="btn" onclick="openDetails(${u.id})">Batafsil</button>
-              <button class="btn btn-outline" onclick="toggleSave(${u.id})">${isSaved ? '❤️' : '🤍'}</button>
+              <button class="btn" onclick="openDetails(${u.id})">Batafsil ko'rish</button>
+              <button class="btn btn-outline" style="width: 50px;" onclick="toggleSave(${u.id})">${isSaved ? '❤️' : '🤍'}</button>
             </div>
           </div>
         `;
       }).join('');
     }
 
-    // Save functionality
     function toggleSave(id) {
       if(savedUnis.includes(id)) {
         savedUnis = savedUnis.filter(item => item !== id);
@@ -379,23 +548,25 @@
       const container = document.getElementById('saved-list');
       const savedData = universities.filter(u => savedUnis.includes(u.id));
       if(savedData.length === 0) {
-        container.innerHTML = "<p>Hozircha hech narsa saqlanmagan.</p>";
+        container.innerHTML = "<p>Hozircha saqlangan universitetlar yo'q.</p>";
         return;
       }
       container.innerHTML = savedData.map(u => `
         <div class="uni-card">
-          <h3>${u.name}</h3>
-          <p>${u.country} • $${u.tuition}/yil</p>
+          <div>
+            <h3>${u.name}</h3>
+            <p>${u.country} • ${u.finModel}</p>
+            <p style="font-size:0.85rem; margin-top:0.5rem;">${u.tuitionRange}</p>
+          </div>
           <button class="btn btn-outline" style="margin-top:1rem;" onclick="toggleSave(${u.id})">O'chirish</button>
         </div>
       `).join('');
     }
 
-    // Compare Page
     function renderCompare() {
       const container = document.getElementById('compare-table-container');
       if(savedUnis.length === 0) {
-        container.innerHTML = "<p>Taqqoslash uchun avval Bosh sahifadan universitetlarni saqlang (❤️ bosing).</p>";
+        container.innerHTML = "<p>Taqqoslash uchun Bosh sahifadagi kartochkalardan ❤️ tugmasini bosing.</p>";
         return;
       }
       const data = universities.filter(u => savedUnis.includes(u.id));
@@ -406,46 +577,58 @@
           ${data.map(u => `<th>${u.name}</th>`).join('')}
         </tr>
         <tr>
-          <td><strong>Davlat</strong></td>
-          ${data.map(u => `<td>${u.country}</td>`).join('')}
+          <td><strong>Davlat & Daraja</strong></td>
+          ${data.map(u => `<td>${u.country} (${u.degree})</td>`).join('')}
         </tr>
         <tr>
-          <td><strong>Kontrakt</strong></td>
-          ${data.map(u => `<td>$${u.tuition}/yil</td>`).join('')}
+          <td><strong>Moliyaviy Model</strong></td>
+          ${data.map(u => `<td><span class="fin-tag">${u.finModel}</span></td>`).join('')}
         </tr>
         <tr>
-          <td><strong>Min IELTS</strong></td>
-          ${data.map(u => `<td>${u.minIelts}</td>`).join('')}
+          <td><strong>To'lov / Kontrakt Diapazoni</strong></td>
+          ${data.map(u => `<td>${u.tuitionRange}</td>`).join('')}
         </tr>
         <tr>
-          <td><strong>Grant</strong></td>
+          <td><strong>Mavjud Grant va Stipendiya</strong></td>
           ${data.map(u => `<td>${u.scholarship}</td>`).join('')}
+        </tr>
+        <tr>
+          <td><strong>Talablar (IELTS / GPA)</strong></td>
+          ${data.map(u => `<td>IELTS ${u.minIelts} | GPA ${u.minGpa}</td>`).join('')}
         </tr>
       </table>`;
       container.innerHTML = html;
     }
 
-    // Details View
     function openDetails(id) {
       const u = universities.find(item => item.id === id);
       const container = document.getElementById('details-content');
       container.innerHTML = `
         <div style="background:#fff; padding:2rem; border-radius:var(--radius); border:1px solid var(--border);">
           <h1>${u.name}</h1>
-          <p style="color:var(--text-muted); font-size:1.1rem; margin-bottom:1rem;">${u.country} | ${u.degree} Program</p>
-          <hr style="border:none; border-top:1px solid var(--border); margin:1rem 0;">
-          <p><strong>Tavsif:</strong> ${u.desc}</p>
+          <p style="color:var(--text-muted); font-size:1rem; margin-top:0.2rem;">${u.country} | ${u.degree} Yo'nalishi</p>
+          <hr style="border:none; border-top:1px solid var(--border); margin:1.5rem 0;">
+          
+          <h3>ℹ️ Universitet haqida</h3>
+          <p style="margin-bottom: 1.5rem;">${u.desc}</p>
+          
+          <h3>💳 Moliyaviy Mexanizm va Kontrakt Narxi</h3>
+          <p><strong>Model:</strong> ${u.finModel}</p>
+          <p><strong>Diapazon:</strong> ${u.tuitionRange}</p>
           <br>
-          <p><strong>💰 Yillik kontrakt:</strong> $${u.tuition}</p>
-          <p><strong>🎁 Grant va Stipendiya:</strong> ${u.scholarship}</p>
-          <p><strong>📅 Hujjat topshirish muhlati (Deadline):</strong> ${u.deadline}</p>
-          <p><strong>📋 Talablar:</strong> IELTS ${u.minIelts}+, GPA ${u.minGpa}+</p>
+
+          <h3>🎁 Grantlar va Imtiyozlar</h3>
+          <p style="color: #15803d; font-weight:600;">${u.scholarship}</p>
+          <br>
+
+          <h3>📅 Qabul shartlari</h3>
+          <p><strong>Minimal IELTS:</strong> ${u.minIelts} | <strong>GPA:</strong> ${u.minGpa}</p>
+          <p><strong>Hujjat topshirish muhlati:</strong> ${u.deadline}</p>
         </div>
       `;
       showPage('details');
     }
 
-    // Quiz Wizard logic
     function setQuizData(key, value) {
       userProfile[key] = value;
       document.getElementById(`quiz-step-${currentStep}`).classList.remove('active');
@@ -460,7 +643,6 @@
       }
     }
 
-    // Init
     renderUniversities();
   </script>
 </body>
