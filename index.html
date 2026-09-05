@@ -1,549 +1,467 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>UniPath</title>
-
-<style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
-
-body {
-    background: linear-gradient(135deg, #eef2ff, #f8fafc);
-    color: #172554;
-    min-height: 100vh;
-}
-
-header {
-    text-align: center;
-    padding: 55px 20px 30px;
-}
-
-header h1 {
-    font-size: 46px;
-    margin-bottom: 12px;
-}
-
-header p {
-    color: #64748b;
-    font-size: 18px;
-}
-
-.search-box {
-    max-width: 700px;
-    margin: 0 auto 22px;
-    padding: 0 20px;
-}
-
-.search-box input {
-    width: 100%;
-    padding: 18px 22px;
-    border: none;
-    border-radius: 15px;
-    font-size: 17px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-    outline: none;
-}
-
-.filters {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    padding: 0 20px 25px;
-}
-
-.filters button {
-    border: none;
-    background: white;
-    padding: 11px 16px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-size: 14px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-    transition: .2s;
-}
-
-.filters button:hover {
-    background: #4f46e5;
-    color: white;
-    transform: translateY(-2px);
-}
-
-.container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 0 20px 60px;
-}
-
-.title-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-}
-
-.container h2 {
-    font-size: 28px;
-}
-
-#count {
-    color: #64748b;
-    font-size: 15px;
-}
-
-.universities {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 22px;
-}
-
-.card {
-    background: white;
-    border-radius: 20px;
-    padding: 23px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-    transition: .25s;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
-}
-
-.card h3 {
-    font-size: 20px;
-    margin-bottom: 8px;
-}
-
-.country {
-    color: #4f46e5;
-    font-weight: bold;
-    margin-bottom: 12px;
-}
-
-.level {
-    display: inline-block;
-    padding: 6px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: bold;
-    margin-bottom: 14px;
-}
-
-.dream {
-    background: #fee2e2;
-    color: #b91c1c;
-}
-
-.reach {
-    background: #ffedd5;
-    color: #c2410c;
-}
-
-.target {
-    background: #fef3c7;
-    color: #92400e;
-}
-
-.safe {
-    background: #dcfce7;
-    color: #166534;
-}
-
-.info {
-    line-height: 1.8;
-    color: #475569;
-    font-size: 14px;
-    margin-bottom: 18px;
-}
-
-.apply {
-    display: inline-block;
-    text-decoration: none;
-    background: #4f46e5;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 10px;
-    font-weight: bold;
-    font-size: 14px;
-}
-
-.apply:hover {
-    background: #3730a3;
-}
-
-.no-results {
-    text-align: center;
-    padding: 50px;
-    color: #64748b;
-    display: none;
-}
-
-footer {
-    text-align: center;
-    padding: 30px;
-    color: #64748b;
-}
-
-@media(max-width:600px) {
-    header h1 {
-        font-size: 34px;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniPath 2.0 — Global Education Finder</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --accent: #f59e0b;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
 
-    .title-row {
-        flex-direction: column;
-        gap: 8px;
-        align-items: flex-start;
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding-bottom: 60px; line-height: 1.5; }
+
+    /* Navigation */
+    header { background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+    .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem; }
+    .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; cursor: pointer; }
+    .nav-links { display: flex; gap: 1rem; }
+    .nav-btn { background: none; border: none; font-weight: 600; color: var(--text-muted); cursor: pointer; padding: 0.5rem 0.75rem; border-radius: 6px; }
+    .nav-btn.active, .nav-btn:hover { color: var(--primary); background: #eff6ff; }
+
+    /* Layout */
+    .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* Hero & Search */
+    .hero { text-align: center; margin-bottom: 2rem; }
+    .hero h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+    .search-bar { display: flex; gap: 0.5rem; max-width: 600px; margin: 1rem auto; }
+    .search-bar input { flex: 1; padding: 0.75rem; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; }
+    
+    /* Filters */
+    .filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem; background: #fff; padding: 1rem; border-radius: var(--radius); border: 1px solid var(--border); }
+    .filter-group label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.25rem; font-weight: 600; }
+    .filter-group select { width: 100%; padding: 0.5rem; border: 1px solid var(--border); border-radius: 6px; }
+
+    /* University Grid */
+    .uni-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+    .uni-card { background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border); padding: 1.25rem; position: relative; box-shadow: var(--shadow); transition: transform 0.2s; }
+    .uni-card:hover { transform: translateY(-3px); }
+    .badge { position: absolute; top: 1rem; right: 1rem; padding: 0.25rem 0.5rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+    .badge-dream { background: #fef3c7; color: #b45309; }
+    .badge-target { background: #dbeafe; color: #1d4ed8; }
+    .badge-safe { background: #dcfce7; color: #15803d; }
+    .badge-reach { background: #f3e8ff; color: #6b21a8; }
+    .match-score { font-size: 1.25rem; font-weight: 800; color: var(--primary); margin: 0.5rem 0; }
+    
+    /* Buttons */
+    .btn { display: inline-block; width: 100%; padding: 0.6rem; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; text-align: center; background: var(--primary); color: #fff; margin-top: 0.5rem; }
+    .btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); }
+    .btn-group { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+
+    /* Quiz */
+    .quiz-card { max-width: 600px; margin: 0 auto; background: #fff; padding: 2rem; border-radius: var(--radius); border: 1px solid var(--border); }
+    .quiz-step { display: none; }
+    .quiz-step.active { display: block; }
+    .quiz-options { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.5rem 0; }
+    .quiz-btn { padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; background: #fff; cursor: pointer; text-align: left; font-size: 1rem; }
+    .quiz-btn.selected { border-color: var(--primary); background: #eff6ff; font-weight: 600; }
+
+    /* Compare & Details Tables */
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; background: #fff; border-radius: var(--radius); overflow: hidden; }
+    th, td { padding: 0.75rem 1rem; border: 1px solid var(--border); text-align: left; }
+    th { background: #f1f5f9; }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .nav-container { flex-direction: column; gap: 1rem; }
+      .search-bar { flex-direction: column; }
+      .btn-group { flex-direction: column; }
     }
-}
-</style>
+  </style>
 </head>
-
 <body>
 
-<header>
-    <h1>🎓 UniPath</h1>
-    <p>Find your university. Build your future.</p>
-</header>
+  <header>
+    <div class="nav-container">
+      <div class="logo" onclick="showPage('home')">🎓 UniPath 2.0</div>
+      <div class="nav-links">
+        <button class="nav-btn active" onclick="showPage('home')">🏠 Bosh sahifa</button>
+        <button class="nav-btn" onclick="showPage('quiz')">🧠 Profile Quiz</button>
+        <button class="nav-btn" onclick="showPage('saved')">❤️ Saqlanganlar (<span id="saved-count">0</span>)</button>
+        <button class="nav-btn" onclick="showPage('compare')">⚖️ Taqqoslash</button>
+      </div>
+    </div>
+  </header>
 
-<div class="search-box">
-    <input
-        type="text"
-        id="search"
-        placeholder="🔎 Search university or country..."
-        oninput="filterUniversities()"
-    >
-</div>
+  <div class="container">
+    
+    <div id="page-home" class="page active">
+      <div class="hero">
+        <h1>O'zingizga Mos Universitetni Toping</h1>
+        <p>Filtrlardan foydalaning yoki Profile Quiz orqali moslik foizini hisoblang.</p>
+        <div class="search-bar">
+          <input type="text" id="search-input" placeholder="Universitet nomi yoki Yo'nalish..." oninput="renderUniversities()">
+        </div>
+      </div>
 
-<div class="filters">
+      <div class="filters">
+        <div class="filter-group">
+          <label>Davlat</label>
+          <select id="filter-country" onchange="renderUniversities()">
+            <option value="">Barchasi</option>
+            <option value="Italy">Italiya</option>
+            <option value="USA">AQSH</option>
+            <option value="UK">Buyuk Britaniya</option>
+            <option value="Germany">Germaniya</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Daraja</label>
+          <select id="filter-degree" onchange="renderUniversities()">
+            <option value="">Barchasi</option>
+            <option value="Bachelor">Bakalavr</option>
+            <option value="Master">Magistratura</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Maks. Kontrakt ($/yil)</label>
+          <select id="filter-tuition" onchange="renderUniversities()">
+            <option value="999999">Cheklovsiz</option>
+            <option value="3000">3,000$ gacha</option>
+            <option value="10000">10,000$ gacha</option>
+          </select>
+        </div>
+      </div>
 
-    <button onclick="setCountry('All')">🌎 All</button>
-    <button onclick="setCountry('USA')">🇺🇸 USA</button>
-    <button onclick="setCountry('UK')">🇬🇧 UK</button>
-    <button onclick="setCountry('Italy')">🇮🇹 Italy</button>
-    <button onclick="setCountry('Canada')">🇨🇦 Canada</button>
-    <button onclick="setCountry('Australia')">🇦🇺 Australia</button>
-    <button onclick="setCountry('Malaysia')">🇲🇾 Malaysia</button>
-    <button onclick="setCountry('Netherlands')">🇳🇱 Netherlands</button>
-    <button onclick="setCountry('Germany')">🇩🇪 Germany</button>
-    <button onclick="setCountry('Singapore')">🇸🇬 Singapore</button>
-    <button onclick="setCountry('UAE')">🇦🇪 UAE</button>
-    <button onclick="setCountry('Switzerland')">🇨🇭 Switzerland</button>
-
-</div>
-
-<div class="filters">
-
-    <button onclick="setLevel('All')">🎓 All Levels</button>
-    <button onclick="setLevel('Dream')">🔴 Dream</button>
-    <button onclick="setLevel('Reach')">🟠 Reach</button>
-    <button onclick="setLevel('Target')">🟡 Target</button>
-    <button onclick="setLevel('Safe')">🟢 Safe</button>
-
-</div>
-
-<div class="container">
-
-    <div class="title-row">
-        <h2>Explore Universities</h2>
-        <span id="count">100 universities</span>
+      <div id="uni-list" class="uni-grid"></div>
     </div>
 
-    <div class="universities" id="universities"></div>
+    <div id="page-quiz" class="page">
+      <div class="quiz-card">
+        <h2>🧠 Profile Match Quiz (6 Bosqich)</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">O'z ko'rsatkichlaringizni kiriting va moslik % ni bilib oling.</p>
 
-    <div class="no-results" id="noResults">
-        😕 No universities found.
+        <div id="quiz-step-1" class="quiz-step active">
+          <h3>1. IELTS / TOEFL Ballingiz?</h3>
+          <div class="quiz-options">
+            <button class="quiz-btn" onclick="setQuizData('ielts', 6.0)">6.0 yoki pastroq</button>
+            <button class="quiz-btn" onclick="setQuizData('ielts', 7.0)">6.5 - 7.0</button>
+            <button class="quiz-btn" onclick="setQuizData('ielts', 8.5)">7.5 - 8.5+</button>
+          </div>
+        </div>
+
+        <div id="quiz-step-2" class="quiz-step">
+          <h3>2. GPA (O'rtacha baho) ko'rsatkichingiz?</h3>
+          <div class="quiz-options">
+            <button class="quiz-btn" onclick="setQuizData('gpa', 3.0)">3.0 gacha (70-80%)</button>
+            <button class="quiz-btn" onclick="setQuizData('gpa', 3.7)">3.5 - 3.8 (85-95%)</button>
+            <button class="quiz-btn" onclick="setQuizData('gpa', 4.0)">3.9 - 4.0 (95-100%)</button>
+          </div>
+        </div>
+
+        <div id="quiz-step-3" class="quiz-step">
+          <h3>3. Qaysi darajada o'qimoqchisiz?</h3>
+          <div class="quiz-options">
+            <button class="quiz-btn" onclick="setQuizData('degree', 'Bachelor')">Bakalavr</button>
+            <button class="quiz-btn" onclick="setQuizData('degree', 'Master')">Magistratura</button>
+          </div>
+        </div>
+
+        <div id="quiz-step-4" class="quiz-step">
+          <h3>4. Qaysi sohani tanlaysiz?</h3>
+          <div class="quiz-options">
+            <button class="quiz-btn" onclick="setQuizData('field', 'Economics')">Iqtisodiyot / Biznes</button>
+            <button class="quiz-btn" onclick="setQuizData('field', 'CS')">Informatika / IT</button>
+            <button class="quiz-btn" onclick="setQuizData('field', 'Politics')">Siyosat / Xalqaro munosabatlar</button>
+          </div>
+        </div>
+
+        <div id="quiz-step-5" class="quiz-step">
+          <h3>5. Yillik maksimal byudjetingiz?</h3>
+          <div class="quiz-options">
+            <button class="quiz-btn" onclick="setQuizData('budget', 2000)">$0 - $2,000 (Grant / Arzon)</button>
+            <button class="quiz-btn" onclick="setQuizData('budget', 10000)">$2,000 - $10,000</button>
+            <button class="quiz-btn" onclick="setQuizData('budget', 50000)">Cheklovsiz</button>
+          </div>
+        </div>
+
+        <div id="quiz-step-6" class="quiz-step">
+          <h3>6. Qaysi region ma'qul?</h3>
+          <div class="quiz-options">
+            <button class="quiz-btn" onclick="setQuizData('region', 'Europe')">Yevropa</button>
+            <button class="quiz-btn" onclick="setQuizData('region', 'USA')">AQSH / Amerika</button>
+            <button class="quiz-btn" onclick="setQuizData('region', 'Any')">Farqi yo'q</button>
+          </div>
+        </div>
+      </div>
     </div>
 
-</div>
+    <div id="page-details" class="page">
+      <button class="btn btn-outline" style="width: auto; margin-bottom: 1rem;" onclick="showPage('home')">← Ortga qarish</button>
+      <div id="details-content"></div>
+    </div>
 
-<footer>
-    © 2026 UniPath | Find your future 🎓
-</footer>
+    <div id="page-saved" class="page">
+      <h2>❤️ Saqlangan Universitetlar</h2>
+      <div id="saved-list" class="uni-grid" style="margin-top: 1rem;"></div>
+    </div>
 
-<script>
+    <div id="page-compare" class="page">
+      <h2>⚖️ Universitetlarni Taqqoslash</h2>
+      <div id="compare-table-container"></div>
+    </div>
 
-const universities = [
+  </div>
 
-/* ================= USA ================= */
+  <script>
+    // Database
+    const universities = [
+      {
+        id: 1,
+        name: "University of Milan",
+        country: "Italy",
+        region: "Europe",
+        degree: "Bachelor",
+        field: "Economics",
+        tuition: 1600,
+        minIelts: 6.5,
+        minGpa: 3.2,
+        scholarship: "DSU Scholarship (To'liq bepul + 7,000€/yil stipendiya)",
+        deadline: "2027-04-30",
+        category: "Target",
+        desc: "Italiyaning yetakchi davlat universiteti. Xalqaro talabalar uchun keng imkoniyatlar mavjud."
+      },
+      {
+        id: 2,
+        name: "Sapienza University of Rome",
+        country: "Italy",
+        region: "Europe",
+        degree: "Bachelor",
+        field: "Politics",
+        tuition: 1000,
+        minIelts: 6.0,
+        minGpa: 3.0,
+        scholarship: "LazioDisco Grant",
+        deadline: "2027-05-15",
+        category: "Safe",
+        desc: "Yevropadagi eng qadimiy va yirik universitetlardan biri."
+      },
+      {
+        id: 3,
+        name: "Harvard University",
+        country: "USA",
+        region: "USA",
+        degree: "Bachelor",
+        field: "CS",
+        tuition: 55000,
+        minIelts: 7.5,
+        minGpa: 3.9,
+        scholarship: "Need-based Full Financial Aid",
+        deadline: "2027-01-01",
+        category: "Dream",
+        desc: "Dunyoning eng nufuzli Ivy League universiteti."
+      },
+      {
+        id: 4,
+        name: "Technical University of Munich",
+        country: "Germany",
+        region: "Europe",
+        degree: "Master",
+        field: "CS",
+        tuition: 3000,
+        minIelts: 7.0,
+        minGpa: 3.5,
+        scholarship: "DAAD Scholarship",
+        deadline: "2027-05-31",
+        category: "Reach",
+        desc: "Germaniyaning muhandislik va IT bo'yicha N1 universiteti."
+      }
+    ];
 
-["Harvard University","USA","Dream","https://www.harvard.edu/"],
-["Stanford University","USA","Dream","https://www.stanford.edu/"],
-["Princeton University","USA","Dream","https://www.princeton.edu/"],
-["Yale University","USA","Dream","https://www.yale.edu/"],
-["Columbia University","USA","Dream","https://www.columbia.edu/"],
-["University of Pennsylvania","USA","Dream","https://www.upenn.edu/"],
-["Cornell University","USA","Reach","https://www.cornell.edu/"],
-["New York University","USA","Reach","https://www.nyu.edu/"],
-["Boston University","USA","Reach","https://www.bu.edu/"],
-["Northeastern University","USA","Reach","https://www.northeastern.edu/"],
-["University of Miami","USA","Target","https://welcome.miami.edu/"],
-["Arizona State University","USA","Target","https://www.asu.edu/"],
-["Drexel University","USA","Target","https://drexel.edu/"],
-["DePaul University","USA","Safe","https://www.depaul.edu/"],
-["University of South Florida","USA","Safe","https://www.usf.edu/"],
+    // State
+    let savedUnis = [];
+    let userProfile = { ielts: 0, gpa: 0, degree: '', field: '', budget: 999999, region: '' };
+    let currentStep = 1;
 
-/* ================= UK ================= */
+    // Navigation
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(`page-${pageId}`).classList.add('active');
+      
+      if(pageId === 'saved') renderSaved();
+      if(pageId === 'compare') renderCompare();
+    }
 
-["University of Oxford","UK","Dream","https://www.ox.ac.uk/"],
-["University of Cambridge","UK","Dream","https://www.cam.ac.uk/"],
-["Imperial College London","UK","Dream","https://www.imperial.ac.uk/"],
-["London School of Economics","UK","Dream","https://www.lse.ac.uk/"],
-["University College London","UK","Reach","https://www.ucl.ac.uk/"],
-["University of Edinburgh","UK","Reach","https://www.ed.ac.uk/"],
-["King's College London","UK","Reach","https://www.kcl.ac.uk/"],
-["University of Manchester","UK","Reach","https://www.manchester.ac.uk/"],
-["University of Bristol","UK","Target","https://www.bristol.ac.uk/"],
-["University of Birmingham","UK","Target","https://www.birmingham.ac.uk/"],
+    // Match Calculation Algorithm
+    function calculateMatch(uni) {
+      if(!userProfile.ielts) return null;
+      let score = 100;
+      
+      if(userProfile.ielts < uni.minIelts) score -= 25;
+      if(userProfile.gpa < uni.minGpa) score -= 25;
+      if(userProfile.budget < uni.tuition) score -= 30;
+      if(userProfile.degree && userProfile.degree !== uni.degree) score -= 10;
+      
+      return Math.max(score, 20);
+    }
 
-/* ================= ITALY ================= */
+    // Categorize dynamic tag
+    function getCategoryBadge(uni, match) {
+      let cat = uni.category;
+      if(match) {
+        if(match >= 85) cat = "Safe";
+        else if(match >= 70) cat = "Target";
+        else if(match >= 50) cat = "Reach";
+        else cat = "Dream";
+      }
+      const badgeClasses = {
+        'Dream': 'badge-dream',
+        'Target': 'badge-target',
+        'Safe': 'badge-safe',
+        'Reach': 'badge-reach'
+      };
+      return `<span class="badge ${badgeClasses[cat] || 'badge-target'}">${cat}</span>`;
+    }
 
-["University of Bologna","Italy","Target","https://www.unibo.it/"],
-["Bocconi University","Italy","Reach","https://www.unibocconi.it/"],
-["University of Milan","Italy","Target","https://www.unimi.it/"],
-["Sapienza University of Rome","Italy","Target","https://www.uniroma1.it/"],
-["University of Padua","Italy","Target","https://www.unipd.it/"],
-["University of Turin","Italy","Safe","https://www.unito.it/"],
-["University of Pavia","Italy","Safe","https://www.unipv.eu/"],
-["University of Pisa","Italy","Target","https://www.unipi.it/"],
+    // Render Main List
+    function renderUniversities() {
+      const search = document.getElementById('search-input').value.toLowerCase();
+      const country = document.getElementById('filter-country').value;
+      const degree = document.getElementById('filter-degree').value;
+      const tuition = parseFloat(document.getElementById('filter-tuition').value);
 
-/* ================= CANADA ================= */
+      const filtered = universities.filter(u => {
+        const matchesSearch = u.name.toLowerCase().includes(search) || u.field.toLowerCase().includes(search);
+        const matchesCountry = !country || u.country === country;
+        const matchesDegree = !degree || u.degree === degree;
+        const matchesTuition = u.tuition <= tuition;
+        return matchesSearch && matchesCountry && matchesDegree && matchesTuition;
+      });
 
-["University of Toronto","Canada","Dream","https://www.utoronto.ca/"],
-["McGill University","Canada","Dream","https://www.mcgill.ca/"],
-["University of British Columbia","Canada","Reach","https://www.ubc.ca/"],
-["University of Alberta","Canada","Reach","https://www.ualberta.ca/"],
-["McMaster University","Canada","Reach","https://www.mcmaster.ca/"],
-["University of Waterloo","Canada","Reach","https://uwaterloo.ca/"],
-["Western University","Canada","Target","https://www.uwo.ca/"],
-["York University","Canada","Target","https://www.yorku.ca/"],
+      const container = document.getElementById('uni-list');
+      container.innerHTML = filtered.map(u => {
+        const match = calculateMatch(u);
+        const isSaved = savedUnis.includes(u.id);
+        return `
+          <div class="uni-card">
+            ${getCategoryBadge(u, match)}
+            <h3>${u.name}</h3>
+            <p style="color: var(--text-muted);">${u.country} • ${u.degree}</p>
+            ${match ? `<div class="match-score">🎯 ${match}% Match</div>` : ''}
+            <p style="margin-top:0.5rem;"><strong>Kontrakt:</strong> $${u.tuition}/yil</p>
+            <p><strong>Min IELTS:</strong> ${u.minIelts} | <strong>GPA:</strong> ${u.minGpa}</p>
+            <div class="btn-group">
+              <button class="btn" onclick="openDetails(${u.id})">Batafsil</button>
+              <button class="btn btn-outline" onclick="toggleSave(${u.id})">${isSaved ? '❤️' : '🤍'}</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
 
-/* ================= AUSTRALIA ================= */
+    // Save functionality
+    function toggleSave(id) {
+      if(savedUnis.includes(id)) {
+        savedUnis = savedUnis.filter(item => item !== id);
+      } else {
+        savedUnis.push(id);
+      }
+      document.getElementById('saved-count').innerText = savedUnis.length;
+      renderUniversities();
+      renderSaved();
+    }
 
-["University of Melbourne","Australia","Dream","https://www.unimelb.edu.au/"],
-["University of Sydney","Australia","Dream","https://www.sydney.edu.au/"],
-["UNSW Sydney","Australia","Dream","https://www.unsw.edu.au/"],
-["Monash University","Australia","Reach","https://www.monash.edu/"],
-["University of Queensland","Australia","Reach","https://www.uq.edu.au/"],
-["University of Adelaide","Australia","Target","https://www.adelaide.edu.au/"],
-["University of Western Australia","Australia","Target","https://www.uwa.edu.au/"],
-["University of Technology Sydney","Australia","Target","https://www.uts.edu.au/"],
-
-/* ================= MALAYSIA ================= */
-
-["University of Malaya","Malaysia","Reach","https://www.um.edu.my/"],
-["Universiti Putra Malaysia","Malaysia","Target","https://upm.edu.my/"],
-["Universiti Kebangsaan Malaysia","Malaysia","Target","https://www.ukm.my/"],
-["Universiti Sains Malaysia","Malaysia","Target","https://www.usm.my/"],
-["Taylor's University","Malaysia","Target","https://university.taylors.edu.my/"],
-["Sunway University","Malaysia","Safe","https://sunway.edu.my/"],
-["Monash University Malaysia","Malaysia","Target","https://www.monash.edu.my/"],
-["University of Nottingham Malaysia","Malaysia","Target","https://www.nottingham.edu.my/"],
-
-/* ================= NETHERLANDS ================= */
-
-["University of Amsterdam","Netherlands","Reach","https://www.uva.nl/"],
-["Leiden University","Netherlands","Reach","https://www.universiteitleiden.nl/"],
-["Erasmus University Rotterdam","Netherlands","Reach","https://www.eur.nl/"],
-["Delft University of Technology","Netherlands","Dream","https://www.tudelft.nl/"],
-["Utrecht University","Netherlands","Reach","https://www.uu.nl/"],
-["Maastricht University","Netherlands","Target","https://www.maastrichtuniversity.nl/"],
-["Radboud University","Netherlands","Target","https://www.ru.nl/"],
-["Tilburg University","Netherlands","Target","https://www.tilburguniversity.edu/"],
-
-/* ================= GERMANY ================= */
-
-["Technical University of Munich","Germany","Dream","https://www.tum.de/"],
-["LMU Munich","Germany","Dream","https://www.lmu.de/"],
-["Heidelberg University","Germany","Reach","https://www.uni-heidelberg.de/"],
-["Humboldt University of Berlin","Germany","Reach","https://www.hu-berlin.de/"],
-["Free University of Berlin","Germany","Target","https://www.fu-berlin.de/"],
-["University of Bonn","Germany","Target","https://www.uni-bonn.de/"],
-["University of Hamburg","Germany","Target","https://www.uni-hamburg.de/"],
-["University of Cologne","Germany","Safe","https://www.uni-koeln.de/"],
-
-/* ================= SINGAPORE ================= */
-
-["National University of Singapore","Singapore","Dream","https://www.nus.edu.sg/"],
-["Nanyang Technological University","Singapore","Dream","https://www.ntu.edu.sg/"],
-["Singapore Management University","Singapore","Reach","https://smu.edu.sg/"],
-["Singapore University of Technology and Design","Singapore","Reach","https://www.sutd.edu.sg/"],
-["Singapore University of Social Sciences","Singapore","Target","https://www.suss.edu.sg/"],
-
-/* ================= UAE ================= */
-
-["NYU Abu Dhabi","UAE","Dream","https://nyuad.nyu.edu/"],
-["Khalifa University","UAE","Reach","https://www.ku.ac.ae/"],
-["United Arab Emirates University","UAE","Target","https://www.uaeu.ac.ae/"],
-["American University of Sharjah","UAE","Reach","https://www.aus.edu/"],
-["University of Dubai","UAE","Safe","https://ud.ac.ae/"],
-
-/* ================= SWITZERLAND ================= */
-
-["ETH Zurich","Switzerland","Dream","https://ethz.ch/"],
-["EPFL","Switzerland","Dream","https://www.epfl.ch/"],
-["University of Zurich","Switzerland","Reach","https://www.uzh.ch/"],
-["University of Geneva","Switzerland","Target","https://www.unige.ch/"],
-["University of Lausanne","Switzerland","Target","https://www.unil.ch/"],
-
-/* ================= EXTRA UNIVERSITIES ================= */
-
-["University of Auckland","Australia","Reach","https://www.auckland.ac.nz/"],
-["University of Otago","Australia","Target","https://www.otago.ac.nz/"],
-["University of Glasgow","UK","Reach","https://www.gla.ac.uk/"],
-["University of Leeds","UK","Reach","https://www.leeds.ac.uk/"],
-["University of Nottingham","UK","Target","https://www.nottingham.ac.uk/"],
-["University of Southampton","UK","Target","https://www.southampton.ac.uk/"],
-["University of Exeter","UK","Target","https://www.exeter.ac.uk/"],
-["Queen's University Belfast","UK","Safe","https://www.qub.ac.uk/"],
-["University of Ottawa","Canada","Target","https://www.uottawa.ca/"],
-["Simon Fraser University","Canada","Target","https://www.sfu.ca/"],
-["University of Calgary","Canada","Target","https://www.ucalgary.ca/"],
-["Dalhousie University","Canada","Safe","https://www.dal.ca/"]
-
-];
-
-/* ================= CREATE CARDS ================= */
-
-const container = document.getElementById("universities");
-
-universities.forEach((uni, index) => {
-
-    const [name, country, level, website] = uni;
-
-    const card = document.createElement("div");
-
-    card.className = "card";
-    card.dataset.country = country;
-    card.dataset.level = level;
-
-    let emoji = "🌎";
-
-    if(country === "USA") emoji = "🇺🇸";
-    if(country === "UK") emoji = "🇬🇧";
-    if(country === "Italy") emoji = "🇮🇹";
-    if(country === "Canada") emoji = "🇨🇦";
-    if(country === "Australia") emoji = "🇦🇺";
-    if(country === "Malaysia") emoji = "🇲🇾";
-    if(country === "Netherlands") emoji = "🇳🇱";
-    if(country === "Germany") emoji = "🇩🇪";
-    if(country === "Singapore") emoji = "🇸🇬";
-    if(country === "UAE") emoji = "🇦🇪";
-    if(country === "Switzerland") emoji = "🇨🇭";
-
-    card.innerHTML = `
-        <h3>${name}</h3>
-
-        <div class="country">
-            ${emoji} ${country}
+    function renderSaved() {
+      const container = document.getElementById('saved-list');
+      const savedData = universities.filter(u => savedUnis.includes(u.id));
+      if(savedData.length === 0) {
+        container.innerHTML = "<p>Hozircha hech narsa saqlanmagan.</p>";
+        return;
+      }
+      container.innerHTML = savedData.map(u => `
+        <div class="uni-card">
+          <h3>${u.name}</h3>
+          <p>${u.country} • $${u.tuition}/yil</p>
+          <button class="btn btn-outline" style="margin-top:1rem;" onclick="toggleSave(${u.id})">O'chirish</button>
         </div>
+      `).join('');
+    }
 
-        <span class="level ${level.toLowerCase()}">
-            ${level}
-        </span>
+    // Compare Page
+    function renderCompare() {
+      const container = document.getElementById('compare-table-container');
+      if(savedUnis.length === 0) {
+        container.innerHTML = "<p>Taqqoslash uchun avval Bosh sahifadan universitetlarni saqlang (❤️ bosing).</p>";
+        return;
+      }
+      const data = universities.filter(u => savedUnis.includes(u.id));
+      
+      let html = `<table>
+        <tr>
+          <th>Universitet</th>
+          ${data.map(u => `<th>${u.name}</th>`).join('')}
+        </tr>
+        <tr>
+          <td><strong>Davlat</strong></td>
+          ${data.map(u => `<td>${u.country}</td>`).join('')}
+        </tr>
+        <tr>
+          <td><strong>Kontrakt</strong></td>
+          ${data.map(u => `<td>$${u.tuition}/yil</td>`).join('')}
+        </tr>
+        <tr>
+          <td><strong>Min IELTS</strong></td>
+          ${data.map(u => `<td>${u.minIelts}</td>`).join('')}
+        </tr>
+        <tr>
+          <td><strong>Grant</strong></td>
+          ${data.map(u => `<td>${u.scholarship}</td>`).join('')}
+        </tr>
+      </table>`;
+      container.innerHTML = html;
+    }
 
-        <div class="info">
-            🎓 Undergraduate<br>
-            📝 English requirement: Check program<br>
-            🎯 SAT/ACT: Program dependent<br>
-            🎁 Scholarships: Check university
+    // Details View
+    function openDetails(id) {
+      const u = universities.find(item => item.id === id);
+      const container = document.getElementById('details-content');
+      container.innerHTML = `
+        <div style="background:#fff; padding:2rem; border-radius:var(--radius); border:1px solid var(--border);">
+          <h1>${u.name}</h1>
+          <p style="color:var(--text-muted); font-size:1.1rem; margin-bottom:1rem;">${u.country} | ${u.degree} Program</p>
+          <hr style="border:none; border-top:1px solid var(--border); margin:1rem 0;">
+          <p><strong>Tavsif:</strong> ${u.desc}</p>
+          <br>
+          <p><strong>💰 Yillik kontrakt:</strong> $${u.tuition}</p>
+          <p><strong>🎁 Grant va Stipendiya:</strong> ${u.scholarship}</p>
+          <p><strong>📅 Hujjat topshirish muhlati (Deadline):</strong> ${u.deadline}</p>
+          <p><strong>📋 Talablar:</strong> IELTS ${u.minIelts}+, GPA ${u.minGpa}+</p>
         </div>
+      `;
+      showPage('details');
+    }
 
-        <a class="apply"
-           href="${website}"
-           target="_blank"
-           rel="noopener noreferrer">
-           University Website →
-        </a>
-    `;
+    // Quiz Wizard logic
+    function setQuizData(key, value) {
+      userProfile[key] = value;
+      document.getElementById(`quiz-step-${currentStep}`).classList.remove('active');
+      currentStep++;
+      if(currentStep <= 6) {
+        document.getElementById(`quiz-step-${currentStep}`).classList.add('active');
+      } else {
+        currentStep = 1;
+        document.getElementById(`quiz-step-1`).classList.add('active');
+        showPage('home');
+        renderUniversities();
+      }
+    }
 
-    container.appendChild(card);
-});
-
-let selectedCountry = "All";
-let selectedLevel = "All";
-
-/* ================= FILTER COUNTRY ================= */
-
-function setCountry(country) {
-    selectedCountry = country;
-    filterUniversities();
-}
-
-/* ================= FILTER LEVEL ================= */
-
-function setLevel(level) {
-    selectedLevel = level;
-    filterUniversities();
-}
-
-/* ================= SEARCH + FILTER ================= */
-
-function filterUniversities() {
-
-    const search =
-        document.getElementById("search")
-        .value
-        .toLowerCase()
-        .trim();
-
-    const cards = document.querySelectorAll(".card");
-
-    let visible = 0;
-
-    cards.forEach(card => {
-
-        const name =
-            card.querySelector("h3")
-            .innerText
-            .toLowerCase();
-
-        const country =
-            card.dataset.country.toLowerCase();
-
-        const level =
-            card.dataset.level;
-
-        const matchesSearch =
-            name.includes(search) ||
-            country.includes(search);
-
-        const matchesCountry =
-            selectedCountry === "All" ||
-            card.dataset.country === selectedCountry;
-
-        const matchesLevel =
-            selectedLevel === "All" ||
-            level === selectedLevel;
-
-        if (
-            matchesSearch &&
-            matchesCountry &&
-            matchesLevel
-        ) {
-            card.style.display = "block";
-            visible++;
-        } else {
-            card.style.display = "none";
-        }
-
-    });
-
-    document.getElementById("count").innerText =
-        visible + " universities";
-
-    document.getElementById("noResults").style.display =
-        visible === 0 ? "block" : "none";
-}
-
-</script>
-
+    // Init
+    renderUniversities();
+  </script>
 </body>
 </html>
